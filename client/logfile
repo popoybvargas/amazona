@@ -1,0 +1,68 @@
+2021-04-24 18:59:44.126 PST [15937] LOG:  starting PostgreSQL 13.2 on arm-apple-darwin20.3.0, compiled by Apple clang version 12.0.0 (clang-1200.0.32.29), 64-bit
+2021-04-24 18:59:44.127 PST [15937] LOG:  listening on IPv6 address "::1", port 5432
+2021-04-24 18:59:44.127 PST [15937] LOG:  listening on IPv4 address "127.0.0.1", port 5432
+2021-04-24 18:59:44.128 PST [15937] LOG:  listening on Unix socket "/tmp/.s.PGSQL.5432"
+2021-04-24 18:59:44.135 PST [15938] LOG:  database system was interrupted; last known up at 2021-04-12 15:40:09 PST
+2021-04-24 18:59:44.175 PST [15938] LOG:  database system was not properly shut down; automatic recovery in progress
+2021-04-24 18:59:44.178 PST [15938] LOG:  redo starts at 0/17BD0D8
+2021-04-24 18:59:44.178 PST [15938] LOG:  invalid record length at 0/17BD1C0: wanted 24, got 0
+2021-04-24 18:59:44.178 PST [15938] LOG:  redo done at 0/17BD188
+2021-04-24 18:59:44.181 PST [15937] LOG:  database system is ready to accept connections
+2021-04-24 18:59:59.187 PST [15951] FATAL:  database "cmsc209" does not exist
+2021-04-24 19:05:05.836 PST [16109] FATAL:  database "cmsc209" does not exist
+2021-04-24 19:05:44.748 PST [16122] ERROR:  relation "users" does not exist at character 15
+2021-04-24 19:05:44.748 PST [16122] STATEMENT:  SELECT * FROM users WHERE email = $1
+2021-04-24 21:31:17.121 PST [16120] ERROR:  syntax error at or near "tables" at character 6
+2021-04-24 21:31:17.121 PST [16120] STATEMENT:  drop tables purchases;
+2021-04-25 06:55:57.341 PST [19088] ERROR:  cannot drop table suppliers because other objects depend on it
+2021-04-25 06:55:57.341 PST [19088] DETAIL:  constraint purchases_supplier_id_fkey on table purchases depends on table suppliers
+2021-04-25 06:55:57.341 PST [19088] HINT:  Use DROP ... CASCADE to drop the dependent objects too.
+2021-04-25 06:55:57.341 PST [19088] STATEMENT:  drop table suppliers;
+2021-04-25 12:19:34.756 PST [19088] ERROR:  cannot drop table suppliers because other objects depend on it
+2021-04-25 12:19:34.756 PST [19088] DETAIL:  constraint purchases_supplier_id_fkey on table purchases depends on table suppliers
+2021-04-25 12:19:34.756 PST [19088] HINT:  Use DROP ... CASCADE to drop the dependent objects too.
+2021-04-25 12:19:34.756 PST [19088] STATEMENT:  drop table suppliers;
+2021-04-25 12:21:20.928 PST [19088] ERROR:  cannot drop table items because other objects depend on it
+2021-04-25 12:21:20.928 PST [19088] DETAIL:  constraint consumptions_item_id_fkey on table consumptions depends on table items
+	constraint writeoffs_item_id_fkey on table writeoffs depends on table items
+	constraint purchases_item_id_fkey on table purchases depends on table items
+2021-04-25 12:21:20.928 PST [19088] HINT:  Use DROP ... CASCADE to drop the dependent objects too.
+2021-04-25 12:21:20.928 PST [19088] STATEMENT:  drop table items;
+2021-04-25 14:17:42.478 PST [22533] FATAL:  database "cmsc209" does not exist
+2021-04-25 22:16:41.726 PST [22543] ERROR:  cannot drop table items because other objects depend on it
+2021-04-25 22:16:41.726 PST [22543] DETAIL:  constraint purchases_item_id_fkey on table purchases depends on table items
+	constraint consumptions_item_id_fkey on table consumptions depends on table items
+	constraint writeoffs_item_id_fkey on table writeoffs depends on table items
+2021-04-25 22:16:41.726 PST [22543] HINT:  Use DROP ... CASCADE to drop the dependent objects too.
+2021-04-25 22:16:41.726 PST [22543] STATEMENT:  drop table items;
+2021-04-25 22:39:33.090 PST [22543] ERROR:  column "active" is of type boolean but default expression is of type integer
+2021-04-25 22:39:33.090 PST [22543] HINT:  You will need to rewrite or cast the expression.
+2021-04-25 22:39:33.090 PST [22543] STATEMENT:  CREATE TABLE suppliers (
+		id BIGSERIAL PRIMARY KEY,
+		name VARCHAR(100) NOT NULL UNIQUE,
+		address TEXT NOT NULL,
+		contact_person VARCHAR(50),
+		contact_number VARCHAR(20),
+		payment_mode payment,
+		credit_term INT DEFAULT 0,
+		active BOOL NOT NULL DEFAULT 1,
+		created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+		created_by BIGINT REFERENCES users(id) NOT NULL,
+		updated_at TIMESTAMPTZ,
+		updated_by BIGINT REFERENCES users(id)
+	);
+2021-04-25 22:50:22.240 PST [25198] ERROR:  syntax error at or near "WHERE" at character 289
+2021-04-25 22:50:22.240 PST [25198] STATEMENT:  SELECT s.id, s.name, s.address, s.contact_person, s.contact_number, s.payment_mode, s.credit_term, s.created_at, u.username created_by, s.updated_at, (SELECT username FROM users WHERE id = s.updated_by) updated_by FROM suppliers s LEFT JOIN users u ON s.created_by = u.id WHERE s.id = $1 WHERE s.active = true
+2021-04-25 22:51:44.382 PST [25217] ERROR:  syntax error at or near "WHERE" at character 289
+2021-04-25 22:51:44.382 PST [25217] STATEMENT:  SELECT s.id, s.name, s.address, s.contact_person, s.contact_number, s.payment_mode, s.credit_term, s.created_at, u.username created_by, s.updated_at, (SELECT username FROM users WHERE id = s.updated_by) updated_by FROM suppliers s LEFT JOIN users u ON s.created_by = u.id WHERE s.id = $1 WHERE s.active = true
+2021-04-25 22:52:48.709 PST [25260] ERROR:  syntax error at or near "," at character 288
+2021-04-25 22:52:48.709 PST [25260] STATEMENT:  SELECT s.id, s.name, s.address, s.contact_person, s.contact_number, s.payment_mode, s.credit_term, s.created_at, u.username created_by, s.updated_at, (SELECT username FROM users WHERE id = s.updated_by) updated_by FROM suppliers s LEFT JOIN users u ON s.created_by = u.id WHERE s.id = $1, s.active = true
+2021-04-26 08:49:55.176 PST [15937] LOG:  server process (PID 29522) was terminated by signal 9: Killed: 9
+2021-04-26 08:49:55.177 PST [15937] LOG:  terminating any other active server processes
+2021-04-26 08:49:55.178 PST [15942] WARNING:  terminating connection because of crash of another server process
+2021-04-26 08:49:55.178 PST [15942] DETAIL:  The postmaster has commanded this server process to roll back the current transaction and exit, because another server process exited abnormally and possibly corrupted shared memory.
+2021-04-26 08:49:55.178 PST [15942] HINT:  In a moment you should be able to reconnect to the database and repeat your command.
+2021-04-26 08:49:55.188 PST [15937] LOG:  all server processes terminated; reinitializing
+2021-04-26 08:49:55.202 PST [15937] LOG:  startup process (PID 29523) was terminated by signal 9: Killed: 9
+2021-04-26 08:49:55.202 PST [15937] LOG:  aborting startup due to startup process failure
+2021-04-26 08:49:55.206 PST [15937] LOG:  database system is shut down
